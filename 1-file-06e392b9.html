@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shmuel Alef 17 – Test Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Frank+Ruhl+Libre:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff; --ink:#1b1d21; --muted:#5b6170; --rule:#cfd4dc;
+  --accent:#28477a; --accent-ink:#ffffff;
+  --right:#1f6b35; --right-bg:#e8f3eb;
+  --part:#875100; --part-bg:#fbf0dd;
+  --wrong:#a3271d; --wrong-bg:#fbe9e7;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#16191e; --ink:#e7e9ee; --muted:#a2a9b6; --rule:#3a404b;
+    --accent:#9dbbea; --accent-ink:#10161f;
+    --right:#8fd3a2; --right-bg:#17301f;
+    --part:#f0c27a; --part-bg:#33270f;
+    --wrong:#f2a39b; --wrong-bg:#3a1c19;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink)}
+body{font-family:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:1.0625rem;line-height:1.55}
+.he{font-family:"Frank Ruhl Libre","Times New Roman",serif;font-size:1.15em;unicode-bidi:isolate}
+.wrap{max-width:680px;margin:0 auto;padding:.75rem 1.25rem 3rem}
+.bsd{text-align:right;font-family:"Frank Ruhl Libre","Times New Roman",serif;font-size:1rem;margin:0 0 .5rem}
+.muted{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* start */
+.title-he{font-family:"Frank Ruhl Libre","Times New Roman",serif;font-weight:700;font-size:2.6rem;line-height:1.1;margin:1.5rem 0 .25rem;text-align:right}
+h1{font-size:1.35rem;margin:0 0 .75rem;text-align:right;font-weight:400}
+.start p{margin:.5rem 0 1.5rem}
+label{display:block;font-weight:700;margin-bottom:.35rem}
+input[type=text]{width:100%;max-width:22rem;font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:.6rem .8rem}
+
+/* question */
+.meta{display:flex;justify-content:space-between;align-items:flex-end;color:var(--muted);font-size:.95rem;border-bottom:1px solid var(--rule);padding-bottom:.5rem;margin-top:.5rem}
+.lvl{display:inline-flex;align-items:flex-end;gap:.5rem}
+.steps{display:inline-flex;align-items:flex-end;gap:3px}
+.steps i{display:block;width:9px;background:var(--rule);border-radius:1px;transition:background .3s}
+.steps i:nth-child(1){height:7px}.steps i:nth-child(2){height:13px}.steps i:nth-child(3){height:19px}
+.steps i.on{background:var(--accent)}
+.prompt{font-size:1.2rem;line-height:1.5;margin:1.25rem 0 1rem}
+.choice{display:block;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:.7rem .9rem;margin:.5rem 0;cursor:pointer}
+.choice:hover:not(:disabled){border-color:var(--accent)}
+.choice.sel{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.choice.right{border-color:var(--right);background:var(--right-bg)}
+.choice.wrong{border-color:var(--wrong);background:var(--wrong-bg)}
+.choice:disabled{cursor:default}
+textarea{display:block;width:100%;min-height:7rem;font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:.7rem .9rem;resize:vertical}
+button.primary{font:inherit;font-weight:700;background:var(--accent);color:var(--accent-ink);border:0;border-radius:6px;padding:.65rem 1.25rem;cursor:pointer;margin-top:.75rem}
+button.primary:disabled{opacity:.4;cursor:default}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* feedback */
+.verdict{font-weight:700;margin:1.25rem 0 .4rem}
+.verdict.v1{color:var(--right)}.verdict.v05{color:var(--part)}.verdict.v0{color:var(--wrong)}
+.ideas{list-style:none;padding:0;margin:.4rem 0 .6rem;display:flex;flex-wrap:wrap;gap:.4rem}
+.ideas li{border:1px solid;border-radius:999px;padding:.1rem .75rem;font-size:.95rem}
+.ideas .hit{color:var(--right);background:var(--right-bg)}
+.ideas .miss{color:var(--wrong);background:var(--wrong-bg)}
+.ideas .extra{color:var(--muted)}
+.model{margin:.6rem 0}
+.src{border-left:3px solid var(--rule);padding:.15rem 0 .15rem .85rem;margin:.75rem 0}
+.src b{display:block;font-size:.92rem;color:var(--muted);font-weight:700}
+
+/* end */
+.card{border:1px solid var(--ink);border-radius:6px;padding:1rem 1.25rem;margin:1rem 0 1.5rem}
+.card p{margin:.15rem 0}
+.card .who{font-size:1.25rem;font-weight:700}
+.card .score{font-size:1.1rem;margin-top:.6rem}
+.card .score span{font-size:2.2rem;font-weight:700;margin-right:.3rem}
+h2{font-size:1.5rem;margin:1.25rem 0 0}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem}
+.review{padding-left:1.4rem;margin:0}
+.review li{margin:.6rem 0}
+.mark{font-weight:700;margin-right:.35rem}
+.r1 .mark{color:var(--right)}.r05 .mark{color:var(--part)}.r0 .mark{color:var(--wrong)}
+.ans{color:var(--muted);margin-top:.15rem}
+@media (prefers-reduced-motion: reduce){.steps i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="bsd" dir="rtl" lang="he">בס״ד</p>
+  <main id="app"></main>
+</div>
+
+<script>
+/* =================== SETTINGS =================== */
+const TITLE_HE = "שמואל א׳ פרק י״ז";
+const TITLE_EN = "Test prep: pesukim 1–11";
+const ROUND = 10;   // questions per practice round
+
+/* =================== QUESTION BANK ===================
+   level: 1 = easier, 2 = medium, 3 = harder
+   type "mc":      put the RIGHT answer FIRST in choices (they get shuffled on screen)
+   type "written": keys = key ideas. Each key idea lists accepted words/phrases separated by |
+                   (the first one is what the student sees in the feedback).
+                   need = how many key ideas it takes to be fully right.
+                   answer = the full answer shown after they check.
+   source: shown after the student answers.
+   Hebrew can be typed right into any text.                                   */
+const BANK = [
+/* ---------- Level 1 ---------- */
+{ level:1, type:"mc",
+  q:"Where was Golyas from?",
+  choices:["Gas","Socoh","Azeikoh","Beis Lechem"],
+  source:[["Pasuk 4","A champion came out from the Pelishti camps, whose name was Golyas of Gas; he was six cubits and a span tall."]] },
+
+{ level:1, type:"mc",
+  q:"Where did Shaul and the men of Yisroel camp?",
+  choices:["In the Eiloh Valley (עֵמֶק הָאֵלָה)","Between Socoh and Azeikoh","In Gas","At Ephes Damim"],
+  source:[["Pasuk 2","Shaul and the men of Yisroel gathered and camped in the Eiloh Valley; they drew up their lines for war against the Pelishtim."]] },
+
+{ level:1, type:"mc",
+  q:"Where did the Pelishtim camp?",
+  choices:["Between Socoh and Azeikoh, at Ephes Damim","In the Eiloh Valley","In Gas","In Beis Lechem"],
+  source:[["Pasuk 1","The Pelishtim assembled their camps for war, and they gathered at Socoh which was in Yehudah’s territory; they camped between Socoh and Azeikoh, at Ephes Damim."]] },
+
+{ level:1, type:"mc",
+  q:"What was between the two camps? (וְהַגַּיְא בֵּינֵיהֶם)",
+  choices:["A valley","A river","A wall","A city"],
+  source:[["Pasuk 3","The Pelishtim were standing on the mountain on one side and Yisroel was standing on the mountain on the other side, with the valley between them."]] },
+
+{ level:1, type:"mc",
+  q:"According to Rashi, what is אֶפֶס דַּמִּים (Ephes Damim)?",
+  choices:["The name of a place","The name of Golyas’s sword","A river","A kind of armor"],
+  source:[["Rashi on “At Ephes Damim”","This was the name of the place."]] },
+
+{ level:1, type:"mc",
+  q:"How tall was Golyas?",
+  choices:["Six cubits and a span (שֵׁשׁ אַמּוֹת וָזָרֶת)","Exactly six cubits","Four cubits and a span","Ten cubits"],
+  source:[["Pasuk 4","A champion came out from the Pelishti camps, whose name was Golyas of Gas; he was six cubits and a span tall."]] },
+
+{ level:1, type:"mc",
+  q:"What was Golyas’s helmet made of?",
+  choices:["Copper","Iron","Gold","Wood"],
+  source:[["Pasuk 5","On his head was a copper helmet, and he wore scaled armor; the armor weighing five thousand copper shekels."]] },
+
+{ level:1, type:"mc",
+  q:"Who walked in front of Golyas?",
+  choices:["The shield bearer (נֹשֵׂא הַצִּנָּה)","The king of the Pelishtim","A messenger from Shaul","Nobody – he walked alone"],
+  source:[["Pasuk 7","The shaft of his spear was like a weaver’s beam and his spearhead weighed six hundred iron shekels; the shield bearer walked in front of him."]] },
+
+{ level:1, type:"mc",
+  q:"How did Shaul and all of Yisroel feel when they heard Golyas?",
+  choices:["Terrified and very afraid","Angry","Ready to fight him right away","They laughed at him"],
+  source:[["Pasuk 11","Shaul and all of Yisroel heard these words of the Pelishti, and they were terrified and very afraid."]] },
+
+/* ---------- Level 2 ---------- */
+{ level:2, type:"written",
+  q:"Why was Golyas called אִישׁ הַבֵּנַיִם (Ish Habeinayim)?",
+  keys:["between | bein | middle | בין",
+        "the two camps | camps | armies | battalions | sides | lines | מערכות"],
+  need:2,
+  answer:"He went out to stand between the two camps (battle lines).",
+  source:[["Rashi on “A champion”","A mighty person who went out from his battalion, to stand between the two battalions."],
+          ["Metzudas David on “איש הבנים”","Because his heart dared to approach between the two battle lines, they called him Ish Habeinayim, from the word בין (between)."]] },
+
+{ level:2, type:"mc",
+  q:"According to Rashi, what was Golyas’s שִׁרְיוֹן קַשְׂקַשִּׂים (scaled armor)?",
+  choices:["Like fish scales, made of iron, spread over the coat","A thick coat made of leather","A coat made of gold","Copper plates that covered only his legs"],
+  source:[["Rashi on “Scaled armor”","Like fish scales, made of iron, spread over the coat (another version: the holes of the coat), a scale [covering] each hole."]] },
+
+{ level:2, type:"mc",
+  q:"How much did Golyas’s armor weigh?",
+  choices:["5,000 copper shekels","600 iron shekels","6,000 copper shekels","500 iron shekels"],
+  source:[["Pasuk 5","On his head was a copper helmet, and he wore scaled armor; the armor weighing five thousand copper shekels."]] },
+
+{ level:2, type:"mc",
+  q:"How much did the head of Golyas’s spear weigh?",
+  choices:["600 iron shekels","5,000 copper shekels","60 iron shekels","600 copper shekels"],
+  source:[["Pasuk 7","The shaft of his spear was like a weaver’s beam and his spearhead weighed six hundred iron shekels; the shield bearer walked in front of him."],
+          ["Rashi on “Six hundred shekel”","All shekels mentioned in the Nevi’im, are ‘maneh.’"]] },
+
+{ level:2, type:"mc",
+  q:"According to the Metzudas David, what was the מִצְחַת נְחֹשֶׁת on Golyas’s legs?",
+  choices:["A weapon of war made to cover his legs","A copper sword tied to his leg","Copper shoes","Chains to slow him down"],
+  source:[["Metzudas David on “ומצחת”","It is one of the weapons of war, and it was made to cover the legs with it."]] },
+
+{ level:2, type:"written",
+  q:"What was the wood of Golyas’s spear like? (עֵץ חֲנִיתוֹ כִּמְנוֹר אֹרְגִים)",
+  keys:["weaver | weavers | orgim | loom | אורגים",
+        "thick | beam | menor | wide | מנור"],
+  need:2,
+  answer:"It was the handle, and it was thick like a weavers’ beam.",
+  source:[["Pasuk 7","The shaft of his spear was like a weaver’s beam and his spearhead weighed six hundred iron shekels; the shield bearer walked in front of him."],
+          ["Metzudas David on “ועץ חניתו”","It is the handle, which was thick like a weavers’ beam."]] },
+
+{ level:2, type:"mc",
+  q:"According to the Metzudas David, why did the shield bearer walk in front of Golyas?",
+  choices:["To protect him from a sword or spear blow","To show him the way","To carry his food","To call out his challenge"],
+  source:[["Metzudas David on “הולך לפניו”","To protect him with it from a blow of a sword and spear."]] },
+
+{ level:2, type:"written",
+  q:"Golyas said בְּרוּ לָכֶם אִישׁ – “Choose for yourselves a man.” According to Rashi, which man did he mean?",
+  keys:["Shaul | saul | shaool | the king | שאול"],
+  need:1,
+  answer:"Shaul – he wanted Shaul to come down and fight him.",
+  source:[["Rashi on “A man”","Shaul, and let him come down to me."]] },
+
+/* ---------- Level 3 ---------- */
+{ level:3, type:"written",
+  q:"What was the כִידוֹן between Golyas’s shoulders, and what was it for? (Rashi and Metzudas David)",
+  keys:["helmet | kova | hat | כובע",
+        "neck | tzavar | צואר | צוואר",
+        "protect | guard | defend | shield | block | safe | save | להגן",
+        "sword | cherev | חרב"],
+  need:3,
+  answer:"Something like a javelin that came out of the helmet and went down between his shoulders, to protect his neck from a sword.",
+  source:[["Rashi on “A copper guard”","Targum Yonoson renders, וּמְסַחֲפָא דִּנְחָשָׁא נָפֵיק מִן קוֹלְסָא וּמְטַל בֵּין כַּתְפוֹהִי, meaning, ‘a sort of copper javelin, protruding from the helmet, and extending between his shoulders,’ to protect his neck from [injury by] the sword."],
+          ["Metzudas David on “וכידון”","From the helmet, something like a javelin came out downward, to protect his neck from a blow of a sword."]] },
+
+{ level:3, type:"mc",
+  q:"According to Rashi, what was the מִצְחַת נְחֹשֶׁת?",
+  choices:["An iron piece that came out of the helmet, opposite his nose, and reached his feet","A piece of armor made to cover his legs","A copper sword strapped to his leg","A second shield that he held with his feet"],
+  source:[["Rashi on “Copper shields”","A sort of iron handle, extending from the helmet, opposite the nose, called nasal in O.F., and it reached his feet."]] },
+
+{ level:3, type:"written",
+  q:"Golyas said לָמָּה תֵצְאוּ לַעֲרֹךְ מִלְחָמָה – “Why should you go out to wage war?” What did he mean? (Rashi)",
+  keys:["all of you | all | everyone | everybody | whole | כולכם",
+        "one man | one | 1 | single | someone | man | representative | champion"],
+  need:2,
+  answer:"Why should all of you go out to fight? Let one man, representing all of you, fight against me.",
+  source:[["Rashi on “Why should you go out”","[Why should] all of you go out to wage war? Let one representing all of you fight against me, and on the condition specified, i.e., “if he will be able to fight me, etc.”"],
+          ["Metzudas David on “למה תצאו”","Meaning: why should all of you go out to war?"]] },
+
+{ level:3, type:"mc",
+  q:"According to Rashi, what did Golyas mean by הֲלוֹא אָנֹכִי הַפְּלִשְׁתִּי – “Am I not the Pelishti?”",
+  choices:["I’m not an officer – I’m a Pelishti like the others, even though I’ve fought many wars for them",
+           "I’m one of the officers, and an officer doesn’t usually fight a lowly servant",
+           "I’m the king of the Pelishtim",
+           "I’m not really a Pelishti, so this isn’t my war"],
+  source:[["Rashi on “Am I not the Pelishti”","I am neither an officer over a hundred, nor an officer over a thousand. I am a Pelishti like one of the others, even though I have fought many wars for them. I killed Chofni and Pinchas, and I captured the Ark, while you have become servants to Shaul, and he never saved you with his might."]] },
+
+{ level:3, type:"written",
+  q:"According to Rashi, what did Golyas say he had done in earlier wars?",
+  keys:["Chofni | hofni | chafni | חפני",
+        "Pinchas | pinchos | pinhas | phinehas | פנחס",
+        "the Ark | ark | aron | aron hakodesh | ארון"],
+  need:3,
+  answer:"He killed Chofni and Pinchas and captured the Ark.",
+  source:[["Rashi on “Am I not the Pelishti”","I am neither an officer over a hundred, nor an officer over a thousand. I am a Pelishti like one of the others, even though I have fought many wars for them. I killed Chofni and Pinchas, and I captured the Ark, while you have become servants to Shaul, and he never saved you with his might."]] },
+
+{ level:3, type:"written",
+  q:"Golyas said וַעֲבַדְתֶּם אֹתָנוּ – “and you shall serve us.” According to the Metzudas David, what was he hinting?",
+  keys:["already | anyway | anyways | still",
+        "servants of Shaul | shaul | saul | שאול",
+        "not a big difference | difference | same | matter | change | big deal | much"],
+  need:2,
+  answer:"You are already servants to Shaul, so if I win and you become our servants, it won’t make such a big difference to you.",
+  source:[["Metzudas David on “ועבדתם אותנו”","As if saying: are you not servants to Shaul? And when I win, you will be servants to us – and for you there is no such great difference in this."]] },
+
+{ level:3, type:"written",
+  q:"Golyas said אֲנִי חֵרַפְתִּי אֶת מַעַרְכוֹת יִשְׂרָאֵל – “I have insulted the battalions of Yisroel.” According to the Metzudas David, what was he telling them?",
+  keys:["ashamed | embarrassed | embarrass | shame | bushah | בושה",
+        "no strength | strength | strong | weak | might | power | brave | courage | gevurah | גבורה",
+        "silent | quiet | nothing | answer | respond | shut"],
+  need:2,
+  answer:"How are you not ashamed? I’m insulting Yisroel by saying you have no strength, and you stay quiet!",
+  source:[["Metzudas David on “אני חרפתי”","As if saying: how are you not ashamed? I am insulting Yisroel, saying that you have no strength, and you keep silent. Until when? Give me a man, etc."]] },
+];
+
+/* =================== ENGINE =================== */
+const app = document.getElementById("app");
+BANK.forEach((q,i)=>q.id=i);
+let S;
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function fmt(s){return esc(s).replace(/[\u0590-\u05FF]+(?:[ \u05BE]+[\u0590-\u05FF]+)*/g,m=>`<span class="he" dir="rtl" lang="he">${m}</span>`);}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function pts(n){const w=Math.floor(n);return (w||n%1===0?String(w):"")+(n%1?"½":"");}
+
+/* --- keyword checking --- */
+function norm(s){
+  return s.toLowerCase().replace(/\u05BE/g," ").replace(/[\u0591-\u05C7]/g,"")
+    .replace(/['’‘`"\u05F3\u05F4]/g,"").replace(/[^a-z0-9\u05D0-\u05EA]+/g," ").trim();
+}
+function lev(a,b){
+  const m=a.length,n=b.length; let p=Array.from({length:n+1},(_,j)=>j);
+  for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c;}
+  return p[n];
+}
+function wordMatch(t,k){
+  if(t===k) return true;
+  if(/[\u05D0-\u05EA]/.test(k)){                       // Hebrew: allow prefixes like ו ה ב ל
+    let x=t; for(let i=0;i<2&&x.length>k.length;i++){ if("והבלמשכ".includes(x[0])){x=x.slice(1); if(x===k) return true;} else break; }
+    return k.length>=4 && Math.abs(t.length-k.length)<=1 && lev(t,k)<=1;
+  }
+  if(k.length<=3) return t===k+"s";
+  if(t.startsWith(k) && t.length-k.length<=3) return true;   // shekels, weavers, protected
+  const tol = k.length>=8?2:(k.length>=5?1:0);                // small spelling mistakes
+  return tol>0 && Math.abs(t.length-k.length)<=tol && lev(t,k)<=tol;
+}
+function phraseIn(toks,pw){
+  for(let i=0;i<toks.length;i++){
+    if(!wordMatch(toks[i],pw[0])) continue;
+    let j=i,ok=true;
+    for(let k=1;k<pw.length;k++){
+      let f=false;
+      for(let m=j+1;m<=Math.min(toks.length-1,j+2);m++){ if(wordMatch(toks[m],pw[k])){j=m;f=true;break;} }
+      if(!f){ok=false;break;}
+    }
+    if(ok) return true;
+  }
+  return false;
+}
+function grade(text,q){
+  const toks=norm(text).split(" ").filter(Boolean);
+  const hits=q.keys.map(k=>k.split("|").map(s=>norm(s)).filter(Boolean).some(alt=>phraseIn(toks,alt.split(" "))));
+  const n=hits.filter(Boolean).length, need=q.need||q.keys.length;
+  const score = n>=need?1:(n>0&&n>=Math.ceil(need/2)?0.5:0);
+  return {hits,score};
+}
+
+/* --- difficulty: up after right answers, down after wrong ones, with some randomness --- */
+function pick(){
+  let t=Math.round(S.skill+(Math.random()-0.5)*1.2);
+  t=Math.min(3,Math.max(1,t));
+  for(const l of [t,t+1,t-1,t+2,t-2]){
+    if(l<1||l>3) continue;
+    const pool=BANK.filter(q=>q.level===l&&!S.used.has(q.id));
+    if(pool.length) return pool[Math.floor(Math.random()*pool.length)];
+  }
+  return null;
+}
+function record(score){
+  S.history.push({q:S.cur,score});
+  S.skill+= score===1?0.6:(score>0?0.15:-0.6);
+  S.skill=Math.min(3,Math.max(1,S.skill));
+}
+
+/* --- screens --- */
+function showStart(name=""){
+  const total=Math.min(ROUND,BANK.length);
+  app.innerHTML=`
+  <section class="start">
+    <p class="title-he" dir="rtl" lang="he">${esc(TITLE_HE)}</p>
+    <h1>${esc(TITLE_EN)}</h1>
+    <p class="muted">${total} questions. They get harder when you get them right and easier when you don’t.</p>
+    <label for="name">Your name</label>
+    <input type="text" id="name" autocomplete="name" value="${esc(name)}">
+    <div><button class="primary" id="go">Start practicing</button></div>
+  </section>`;
+  const go=()=>begin(document.getElementById("name").value.trim());
+  document.getElementById("go").onclick=go;
+  document.getElementById("name").onkeydown=e=>{if(e.key==="Enter")go();};
+}
+function begin(name){
+  S={name,skill:1.4,used:new Set(),history:[],total:Math.min(ROUND,BANK.length)};
+  next();
+}
+function steps(l){
+  return `<span class="lvl" aria-label="Level ${l} of 3"><span class="steps">${[1,2,3].map(i=>`<i class="${i<=l?"on":""}"></i>`).join("")}</span>Level ${l}</span>`;
+}
+function next(){
+  if(S.history.length>=S.total) return showEnd();
+  const q=pick(); if(!q) return showEnd();
+  S.used.add(q.id); S.cur=q;
+  const n=S.history.length+1;
+  let body;
+  if(q.type==="mc"){
+    body=`<div class="choices" role="group" aria-label="Choices">${shuffle(q.choices.map((_,i)=>i)).map(i=>`<button class="choice" data-i="${i}">${fmt(q.choices[i])}</button>`).join("")}</div>`;
+  }else{
+    body=`<label class="sr" for="ans">Your answer</label><textarea id="ans" placeholder="Type your answer in your own words"></textarea>`;
+  }
+  app.innerHTML=`
+    <div class="meta"><span>Question ${n} of ${S.total}</span>${steps(q.level)}</div>
+    <p class="prompt">${fmt(q.q)}</p>
+    ${body}
+    <div id="fb" aria-live="polite"></div>
+    <button class="primary" id="check" disabled>Check answer</button>`;
+  const check=document.getElementById("check");
+  if(q.type==="mc"){
+    app.querySelectorAll(".choice").forEach(b=>b.onclick=()=>{
+      app.querySelectorAll(".choice").forEach(x=>x.classList.remove("sel"));
+      b.classList.add("sel"); check.disabled=false;
+    });
+    check.onclick=checkMC;
+  }else{
+    const ta=document.getElementById("ans");
+    ta.oninput=()=>check.disabled=!ta.value.trim();
+    ta.onkeydown=e=>{if(e.key==="Enter"&&(e.ctrlKey||e.metaKey)&&ta.value.trim())checkWritten();};
+    check.onclick=checkWritten;
+    ta.focus();
+  }
+  window.scrollTo(0,0);
+}
+function sources(q){
+  return q.source.map(([who,txt])=>`<div class="src"><b>${fmt(who)}</b>${fmt(txt)}</div>`).join("");
+}
+function finish(score){
+  record(score);
+  const check=document.getElementById("check");
+  const last=S.history.length>=S.total;
+  check.textContent= last?"See my results":"Next question";
+  check.onclick=next; check.disabled=false; check.focus();
+}
+function checkMC(){
+  const q=S.cur, sel=+app.querySelector(".choice.sel").dataset.i, ok=sel===0;
+  app.querySelectorAll(".choice").forEach(b=>{b.disabled=true;b.classList.remove("sel");const i=+b.dataset.i;if(i===0)b.classList.add("right");else if(i===sel)b.classList.add("wrong");});
+  document.getElementById("fb").innerHTML=`
+    <p class="verdict ${ok?"v1":"v0"}">${ok?"Right.":"Not quite. The right answer is marked in green."}</p>
+    ${sources(q)}`;
+  finish(ok?1:0);
+}
+function checkWritten(){
+  const q=S.cur, ta=document.getElementById("ans");
+  ta.readOnly=true;
+  const {hits,score}=grade(ta.value,q);
+  const label=k=>k.split("|")[0].trim();
+  const chips=q.keys.map((k,i)=>hits[i]
+      ?`<li class="hit">✓ ${fmt(label(k))}</li>`
+      :`<li class="${score===1?"extra":"miss"}">${score===1?"+":"✗"} ${fmt(label(k))}</li>`).join("");
+  const verdict= score===1?"You got the key ideas.":score>0?"Partly right. Look at what’s missing:":"Not yet. These are the key ideas to look for:";
+  document.getElementById("fb").innerHTML=`
+    <p class="verdict v${String(score).replace(".","")}">${verdict}</p>
+    <ul class="ideas">${chips}</ul>
+    <p class="model"><b>A full answer:</b> ${fmt(q.answer)}</p>
+    ${sources(q)}`;
+  finish(score);
+}
+function showEnd(){
+  const h=S.history, total=h.length, sum=h.reduce((a,x)=>a+x.score,0);
+  const top=h.length?Math.max(...h.map(x=>x.q.level)):1;
+  const date=new Date().toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});
+  const items=h.map(({q,score})=>{
+    const cls=score===1?"r1":score>0?"r05":"r0", mark=score===1?"✓":score>0?"½":"✗";
+    const ans=q.type==="mc"?q.choices[0]:q.answer;
+    return `<li class="${cls}"><span class="mark">${mark}</span>${fmt(q.q)}${score<1?`<div class="ans">Answer: ${fmt(ans)}</div>`:""}</li>`;
+  }).join("");
+  app.innerHTML=`
+    <h2>Done</h2>
+    <div class="card">
+      <p class="who">${esc(S.name||"No name entered")}</p>
+      <p class="muted">${fmt(TITLE_HE)}</p><p class="muted">${esc(TITLE_EN)}</p>
+      <p class="muted">${date}</p>
+      <p class="score"><span>${pts(sum)}</span>out of ${total}</p>
+      <p>Highest level reached: ${top}</p>
+    </div>
+    <p class="muted">Take a screenshot of this box for your homework.</p>
+    <h3>Review</h3>
+    <ol class="review">${items}</ol>
+    <button class="primary" id="again">Practice again</button>`;
+  document.getElementById("again").onclick=()=>showStart(S.name);
+  window.scrollTo(0,0);
+}
+showStart();
+</script>
+</body>
+</html>
